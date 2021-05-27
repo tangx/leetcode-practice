@@ -1,11 +1,3 @@
-package main
-
-import (
-	"testing"
-
-	. "github.com/onsi/gomega"
-)
-
 /*
 	买卖股票的最佳时机 II
 	给定一个数组 prices ，其中 prices[i] 是一支给定股票第 i 天的价格。
@@ -48,6 +40,13 @@ import (
 	来源：力扣（LeetCode）
 	著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 */
+package main
+
+import (
+	"testing"
+
+	. "github.com/onsi/gomega"
+)
 
 // maxProfit 最大盈利
 // 贪婪算法: 最多次的完成交易， 只要后一天比前一天有赚， 就在前一天买，后一天卖。

@@ -1,11 +1,3 @@
-package main
-
-import (
-	"testing"
-
-	. "github.com/onsi/gomega"
-)
-
 /*
 
 删除排序数组中的重复项
@@ -55,6 +47,13 @@ nums 已按升序排列
 来源：力扣（LeetCode）
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 */
+package main
+
+import (
+	"testing"
+
+	. "github.com/onsi/gomega"
+)
 
 // removeDuplicates 删除重复值
 // 解题思路， 使用双指针
