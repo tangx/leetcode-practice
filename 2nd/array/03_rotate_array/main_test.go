@@ -59,25 +59,6 @@ func rotate(nums []int, k int) {
 		return
 	}
 
-	// /* 移动方法 1 */
-	// step := k % len(nums) : k > len(nums) 不用进行多次循环
-	// for step := k % len(nums); step > 0; step-- {
-	// 	// 将最后一个值取出来暂存
-	// 	tmp := nums[len(nums)-1]
-	// 	// 每一位向后移动
-	// 	for i := len(nums) - 1; i >= 0; i-- {
-
-	// 		// 如果已经后移到最后第一个位置
-	// 		// 将暂存值放入第一个位置
-	// 		if i == 0 {
-	// 			nums[0] = tmp
-	// 			continue
-	// 		}
-	// 		// 后移
-	// 		nums[i] = nums[i-1]
-	// 	}
-	// }
-
 	/* 移动方法2
 	测试用例超时， 继续优化
 	https://leetcode-cn.com/submissions/detail/181609182/
@@ -91,6 +72,27 @@ func rotate(nums []int, k int) {
 	// 	}
 	// }
 
+	/* 解决方法3: 1. 全部翻转 2. 左右局部翻转*/
+	length := len(nums)
+	// 1. 全局翻转
+	for i := 0; i < length/2; i++ {
+		nums[i], nums[length-1-i] = nums[length-1-i], nums[i]
+	}
+
+	// 2. 左右局部翻转
+	step := k % length
+	// 左侧翻转
+	// 总长度=(右-左)
+	for i := 0; i < (step-0)/2; i++ {
+		nums[i], nums[step-1-i] = nums[step-1-i], nums[i]
+	}
+
+	// 右侧翻转
+	for i := 0; i < (length-step)/2; i++ {
+		head := i + step
+		tail := length - 1 - i
+		nums[head], nums[tail] = nums[tail], nums[head]
+	}
 }
 
 func Test_Rotate(t *testing.T) {
@@ -110,7 +112,7 @@ func Test_Rotate(t *testing.T) {
 
 		for _, data := range datas {
 			rotate(data.Origin, data.Key)
-			NewWithT(t).Expect(data.Result).To(Equal(data.Origin))
+			NewWithT(t).Expect(data.Origin).To(Equal(data.Result))
 		}
 
 	})
