@@ -47,73 +47,50 @@ nums 已按升序排列
 来源：力扣（LeetCode）
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 */
-package main
+package removeduplicates
 
 import (
+	"fmt"
 	"testing"
 
 	. "github.com/onsi/gomega"
 )
 
-// removeDuplicates 删除重复值
-// 解题思路， 使用双指针
-func removeDuplicates(nums []int) int {
-
-	// 如果长度为 0
-	// nil 长度也为0
-	if len(nums) == 0 {
-		return 0
-	}
-
-	// 如果长度不为0
-	head := 0
-
-	// 移动指针 tail
-	for tail := 1; tail < len(nums); tail++ {
-		// 如果 nums[tail] 与 nums[head] 相同， 则 tail 继续移动，
-		if nums[tail] == nums[head] {
-			continue
-		}
-
-		// 如果 nums[tail] 与 nums[head] 不相同， 则 head+1 并复制 nums[tail]
-		head += 1
-		nums[head] = nums[tail]
-	}
-
-	// 返回长度 head+1
-	// 因为 head 指针位置从 0 开始， 因此长度要 +1
-	return head + 1
+type MockData struct {
+	Result int
+	Data   []int
 }
 
-func Test_removeDuplicates(t *testing.T) {
+var (
+	mockDatas = []MockData{
+		// {Result: 0, Data: nil},
+		{Result: 0, Data: []int{}},
+		{Result: 1, Data: []int{1}},
+		{Result: 2, Data: []int{1, 1, 2}},
+		{Result: 5, Data: []int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}},
+	}
+)
 
-	// 常规操作，先去除异常场景。把数组是null和数组为空的情况排除。
-	t.Run("nil slice", func(t *testing.T) {
-		n := removeDuplicates(nil)
-		NewWithT(t).Expect(n).To(Equal(0))
-	})
-	t.Run("len = 0", func(t *testing.T) {
-		nums := []int{}
-		n := removeDuplicates(nums)
-		NewWithT(t).Expect(n).To(Equal(0))
-	})
+type solutionFunc func(nums []int) int
 
-	// 正常判断
-	t.Run("len = 1", func(t *testing.T) {
-		nums := []int{1}
-		n := removeDuplicates(nums)
-		NewWithT(t).Expect(n).To(Equal(1))
-	})
+var (
+	solutionFuncs = []solutionFunc{
+		removeDuplicates20200530,
+	}
+)
 
-	t.Run("len > 2: [1,1,2]", func(t *testing.T) {
-		nums := []int{1, 1, 2}
-		n := removeDuplicates(nums)
-		NewWithT(t).Expect(n).To(Equal(2))
-	})
+func Test_Main(t *testing.T) {
 
-	t.Run("len > 2: [0,0,1,1,1,2,2,3,3,4]", func(t *testing.T) {
-		nums := []int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}
-		n := removeDuplicates(nums)
-		NewWithT(t).Expect(n).To(Equal(5))
-	})
+	f := func(fn solutionFunc) {
+		for _, mock := range mockDatas {
+			t.Run(fmt.Sprint(mock), func(t *testing.T) {
+				ret := fn(mock.Data)
+				NewWithT(t).Expect(ret).To(Equal(mock.Result))
+			})
+		}
+	}
+
+	for _, fn := range solutionFuncs {
+		f(fn)
+	}
 }
