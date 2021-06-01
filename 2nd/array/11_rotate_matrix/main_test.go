@@ -81,16 +81,18 @@ func rotate(matrix [][]int) {
 			// row=2,col=0 : (2,0)<=>(1,3)=(edge-2,edge-0)=(edge-row,edge-col)
 			// row=1,col=1 : (1,1)<=>(2,2)=(edge-1,edge-1)=(edge-row,edge-col)
 			matrix[row][col], matrix[edge-col][edge-row] = matrix[edge-col][edge-row], matrix[row][col]
-			fmt.Println(matrix)
 		}
 	}
 
-	// todo // 2. 水平线交换
-	for col := 0; col <= edge; col++ {
-		for row := 0; row <= edge-row; row++ {
-			matrix[row][col], matrix[col][row] = matrix[col][row], matrix[row][col]
+	fmt.Println(matrix)
+	// 2. 水平线交换
+	for row := 0; row <= (edge)/2; row++ {
+		for col := 0; col <= edge; col++ {
+			matrix[row][col], matrix[edge-row][col] = matrix[edge-row][col], matrix[row][col]
 		}
 	}
+
+	fmt.Println(matrix)
 }
 
 func Test_RotateMatrix(t *testing.T) {
@@ -102,8 +104,8 @@ func Test_RotateMatrix(t *testing.T) {
 			Result: [][]int{{7, 4, 1}, {8, 5, 2}, {9, 6, 3}},
 			Data:   [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}},
 		}, {
-			Result: [][]int{{5, 1, 9, 11}, {2, 4, 8, 10}, {13, 3, 6, 7}, {15, 14, 12, 16}},
-			Data:   [][]int{{15, 13, 2, 5}, {14, 3, 4, 1}, {12, 6, 8, 9}, {16, 7, 10, 11}},
+			Result: [][]int{{15, 13, 2, 5}, {14, 3, 4, 1}, {12, 6, 8, 9}, {16, 7, 10, 11}},
+			Data:   [][]int{{5, 1, 9, 11}, {2, 4, 8, 10}, {13, 3, 6, 7}, {15, 14, 12, 16}},
 		},
 	}
 
