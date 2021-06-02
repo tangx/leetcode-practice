@@ -44,15 +44,15 @@ import (
 	"github.com/onsi/gomega"
 )
 
-var MockDatas = []struct {
-	Data   int
-	Result int
-}{
-	{Data: 1, Result: 1},
-	{Data: 120, Result: 21},
-	{Data: -120, Result: -21},
-	{Data: 1245677899, Result: 0},
-}
+// var MockDatas = []struct {
+// 	Data   int
+// 	Result int
+// }{
+// 	{Data: 1, Result: 1},
+// 	{Data: 120, Result: 21},
+// 	{Data: -120, Result: -21},
+// 	{Data: 1245677899, Result: 0},
+// }
 
 func Test_Reverse(t *testing.T) {
 
