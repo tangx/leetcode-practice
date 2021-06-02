@@ -24,7 +24,7 @@ countAndSay(n) 是对 countAndSay(n-1) 的描述，然后转换成另一个数�
 
 例如，数字字符串 "3322251" 的描述如下图：
 
-
+https://assets.leetcode.com/uploads/2020/10/23/countandsay.jpg
 
 
 示例 1：
