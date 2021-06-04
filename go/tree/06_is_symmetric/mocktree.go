@@ -6,22 +6,46 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-var MockNode *TreeNode
-
 func newNode(val int) *TreeNode {
 	return &TreeNode{
 		Val: val,
 	}
 }
 
-func init() {
-	MockNode = newNode(3)
+var (
+	rootOnly   *TreeNode = initRootTree()
+	symeTree   *TreeNode = initSymeTree()
+	inSymeTree *TreeNode = initInSymeTree()
+)
 
-	node9 := newNode(9)
-	node20 := newNode(20)
-	MockNode.Left = node9
-	MockNode.Right = node20
+func init1_0() *TreeNode {
+	tree := newNode(1)
+	tree.Left = newNode(0)
+	return tree
+}
 
-	node20.Left = newNode(15)
-	node20.Right = newNode(7)
+func initRootTree() *TreeNode {
+	return newNode(1)
+}
+
+func initSymeTree() *TreeNode {
+	symeTree := newNode(1)
+
+	symeTree.Left, symeTree.Right = newNode(2), newNode(2)
+
+	symeTree.Left.Left, symeTree.Left.Right = newNode(3), newNode(4)
+	symeTree.Right.Left, symeTree.Right.Right = newNode(4), newNode(3)
+
+	return symeTree
+}
+
+func initInSymeTree() *TreeNode {
+	inSymeTree := newNode(1)
+
+	inSymeTree.Left, inSymeTree.Right = newNode(2), newNode(2)
+
+	inSymeTree.Left.Right = newNode(3)
+	inSymeTree.Right.Right = newNode(3)
+
+	return inSymeTree
 }

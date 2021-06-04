@@ -55,3 +55,26 @@ func Test_IntEqualNil(t *testing.T) {
 		})
 	}
 }
+
+var MockDatas = []struct {
+	summary string
+	tree    *TreeNode
+	valid   bool
+}{
+	// {tree: rootOnly, valid: true, summary: "root only"},
+	// {tree: symeTree, valid: true, summary: "symmetric tree"},
+	// {tree: inSymeTree, valid: false, summary: "in-symmetric tree"},
+	{tree: init1_0(), valid: false, summary: "[1,0]"},
+}
+
+// 判断是否为镜像树
+func Test_IsSymmetric(t *testing.T) {
+
+	for _, mock := range MockDatas {
+		t.Run(mock.summary, func(t *testing.T) {
+			ok := isSymmetric(mock.tree)
+
+			gomega.NewWithT(t).Expect(ok).To(gomega.Equal(mock.valid))
+		})
+	}
+}
